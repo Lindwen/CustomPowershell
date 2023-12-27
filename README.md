@@ -2,6 +2,9 @@
 
 Ce dépôt contient un script PowerShell nommé `run.ps1` conçu pour customiser votre Powershell.
 
+![winfetch_command](/assets/winfetch.png)
+![ls_command](/assets/ls.png)
+
 ## Comment l'utiliser
 
 ### Téléchargement du dépôt
