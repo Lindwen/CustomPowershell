@@ -17,11 +17,11 @@ ou en téléchargeant le code en tant que fichier ZIP et en l'extrayant sur votr
 
 ### Exécution du script
 
-* Assurez-vous d'avoir [PowerShell](https://github.com/PowerShell/PowerShell/releases) installé sur votre système (Atention, PowerShell != Windows PowerShell).
+* Assurez-vous d'avoir [PowerShell](https://github.com/PowerShell/PowerShell/releases) installé sur votre système.
 
 #### Important ! Avant d'exécuter le script :
 Avant d'exécuter ce script, il faut changer la politique d'exécution des scripts de PowerShell.
-Pour le faire, exécuter les commandes suivantes dans PowerShell (pas Windows PowerShell) en tant qu'administrateur.
+Pour le faire, exécuter les commandes suivantes dans PowerShell en tant qu'administrateur.
 ```powershell
 Get-ExecutionPolicy # Retenez bien le résultat, c'est votre politique d'exécution des scripts actuelle
 Set-ExecutionPolicy unrestricted # Autorise l'exécution de scripts non signés, étant donné que celui là ne l'est pas.
