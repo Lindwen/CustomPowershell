@@ -84,7 +84,7 @@ Add-Content $PROFILE "winfetch"
 Add-Content $PROFILE "oh-my-posh init pwsh --config '$env:POSH_THEMES_PATH/zash.omp.json' | Invoke-Expression"
 
 Write-Host ""
-DisplayMessage "Si vous souhaitez enlever le temps de chargement ajouter -nologo à la commande de lancement de votre terminal. You can add the -nologo to PowerShell's launching arguments if you want to make the loading time shorter." "instruct"
+DisplayMessage "You can add the -nologo to PowerShell's launching arguments if you want to make the loading time shorter." "instruct"
 DisplayMessage 'E.g. : "C:\Program Files\PowerShell\7\pwsh.exe" -nologo' "instruct"
 Write-Host ""
 DisplayMessage "Don't forget to replace your current terminal's font by the one you installed with this script (Its name ends with 'Nerd Font')." "instruct"
