@@ -13,11 +13,11 @@ function DisplayMessage($message, $type) {
 function ManageModulePolicy($action) {
     switch ($action) {
         "disable" {
-            DisplayMessage "Désactivation temporaire de la politique d'installation des modules" "note"
+            DisplayMessage "Temporary disabling module installation policy." "note"
             Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
         }
         "enable" {
-            DisplayMessage "Réactivation de la politique d'installation des modules" "note"
+            DisplayMessage "Enable module installation policy." "note"
             Set-ExecutionPolicy -Scope Process -ExecutionPolicy Default
         }
     }
@@ -29,49 +29,49 @@ if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 }
 
 cls
-DisplayMessage "Installation de Winget..." "note"
+DisplayMessage "Installing winget..." "note"
 Write-Host ""
-DisplayMessage "Veuillez installer Microsoft Winget depuis le Microsoft Store." "instruct"
-DisplayMessage "Vous devrez peut-être cliquer sur le bouton 'Installer' manuellement dans le Microsoft Store." "instruct"
+DisplayMessage "Please install Microsoft Winget from the Microsoft Store." "instruct"
+DisplayMessage "You may need to click manually on the 'Install' button in the Microsoft Store. " "instruct"
 Start-Process "ms-windows-store://pdp/?ProductId=9NBLGGH4NNS1"
 Write-Host ""
 pause
 
 ManageModulePolicy "disable"
 
-DisplayMessage "Installation de Winfetch..." "note"
+DisplayMessage "Installing Winfetch..." "note"
 Install-Script -Name winfetch -Force -Confirm:$false
 
-DisplayMessage "Installation de Terminal-Icons..." "note"
+DisplayMessage "Installing Terminal-Icons..." "note"
 Install-Module -Name Terminal-Icons -Force -Confirm:$false
 
 ManageModulePolicy "enable"
 
-DisplayMessage "Installation de OhMyPosh..." "note"
+DisplayMessage "Installing OhMyPosh..." "note"
 winget install JanDeDobbeleer.OhMyPosh -s winget
 $env:POWERSHELL_MODULES_PATH = $env:PSModulePath -split ';'
 Start-Sleep -Seconds 5
 
-DisplayMessage "Configuration de la police" "note"
+DisplayMessage "Font configuration" "note"
 Write-Host ""
-DisplayMessage "Choisissez une police à télécharger" "instruct"
+DisplayMessage "Please select a font to download :" "instruct"
 Write-Host ""
 oh-my-posh font install --user
 
 ManageModulePolicy "disable"
 
-DisplayMessage "Lancement de Winfetch" "note"
+DisplayMessage "Launching Winfetch" "note"
 winfetch
 $pathConfigWinfetch = Join-Path -Path $env:UserProfile -ChildPath ".config\winfetch\config.ps1"
 Write-Host ""
-DisplayMessage "Pour modifier la configuration de Winfetch, modifier le fichier dans : $pathConfigWinfetch" "instruct"
+DisplayMessage "To change the Winfetch configuration, you need to modify this file : $pathConfigWinfetch" "instruct"
 Write-Host ""
 
 ManageModulePolicy "enable"
 
-DisplayMessage "Configuration du profil Powershell" "note"
+DisplayMessage "Configuring PowerShell profile" "note"
 Write-Host ""
-DisplayMessage "Le fichier de configuration existant va être supprimé" "warn"
+DisplayMessage "The current PowerShell configuration will be erased, you may want to back it up." "warn"
 Write-Host ""
 pause
 if (Test-Path $PROFILE) {
@@ -84,10 +84,10 @@ Add-Content $PROFILE "winfetch"
 Add-Content $PROFILE "oh-my-posh init pwsh --config '$env:POSH_THEMES_PATH/zash.omp.json' | Invoke-Expression"
 
 Write-Host ""
-DisplayMessage "Si vous souhaitez enlever le temps de chargement ajouter -nologo à la commande de lancement de votre terminal." "instruct"
-DisplayMessage 'Par exemple : "C:\Program Files\PowerShell\7\pwsh.exe" -nologo' "instruct"
+DisplayMessage "Si vous souhaitez enlever le temps de chargement ajouter -nologo à la commande de lancement de votre terminal. You can add the -nologo to PowerShell's launching arguments if you want to make the loading time shorter." "instruct"
+DisplayMessage 'E.g. : "C:\Program Files\PowerShell\7\pwsh.exe" -nologo' "instruct"
 Write-Host ""
-DisplayMessage "N'oubliez pas de changer la police du terminal par celle que vous avez télécharger (elle fini par 'Nerd Font')" "instruct"
+DisplayMessage "Don't forget to replace your current terminal's font by the one you installed with this script (Its name ends with 'Nerd Font')." "instruct"
 Write-Host ""
 
 pause
