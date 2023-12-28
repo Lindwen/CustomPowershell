@@ -2,52 +2,67 @@ if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     Start-Process powershell.exe "-File", "$PSCommandPath" -Verb RunAs
     exit
 }
+
+function sendMessage($message, $type) {
+    if($type -eq "error") {
+        Write-Host "[ERROR] $message" -ForegroundColor Red
+    } elseif($type -eq "warn") {
+        Write-Host "[WARNING] $message" -ForegroundColor Yellow
+    } elseif($type -eq "note") {
+        Write-Host "[NOTE] $message" -ForegroundColor Green
+    } elseif($type -eq "instruct") {
+        Write-Host "[INSTRUCT] $message" -ForegroundColor Cyan
+    } else {
+        Write-Host "[INFO] $message" -ForegroundColor White
+    }
+}
+
 cls
-Write-Host "[NOTE] Installation de Winget..."
+sendMessage "Installation de Winget..." "note"
 Write-Host ""
-Write-Host "[INSTRUCT] Veuillez installer Microsoft Winget depuis le Microsoft Store." -ForegroundColor Yellow
-Write-Host "[INSTRUCT] Vous devrez peut-être cliquer sur le bouton 'Installer' manuellement dans le Microsoft Store." -ForegroundColor Yellow
+sendMessage "Veuillez installer Microsoft Winget depuis le Microsoft Store." "instruct"
+sendMessage "Vous devrez peut-être cliquer sur le bouton 'Installer' manuellement dans le Microsoft Store." "instruct"
 Start-Process "ms-windows-store://pdp/?ProductId=9NBLGGH4NNS1"
 Write-Host ""
 pause
 
-Write-Host "[NOTE] Désactivation temporaire de la politique d'installation des modules"
+sendMessage "Désactivation temporaire de la politique d'installation des modules" "note"
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
-Write-Host "[NOTE] Installation de Winfetch..."
+sendMessage "Installation de Winfetch..." "note"
 Install-Script -Name winfetch -Force -Confirm:$false
 
-Write-Host "[NOTE] Installation de Terminal-Icons..."
+sendMessage "Installation de Terminal-Icons..." "note"
 Install-Module -Name Terminal-Icons -Force -Confirm:$false
 
-Write-Host "[NOTE] Réactivation de la politique d'installation des modules"
+sendMessage "Réactivation de la politique d'installation des modules" "note"
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Default
 
-Write-Host "[NOTE] Installation de OhMyPosh..."
+sendMessage "Installation de OhMyPosh..." "note"
 winget install JanDeDobbeleer.OhMyPosh -s winget
 
-Write-Host "[NOTE] Configuration de la police"
+sendMessage "Configuration de la police" "note"
 Write-Host ""
-Write-Host "[INSTRUCT] Choisissez une police à télécharger" -ForegroundColor Yellow
+sendMessage "Choisissez une police à télécharger" "instruct"
 Write-Host ""
 oh-my-posh font install --user
 
-Write-Host "[NOTE] Désactivation temporaire de la politique d'installation des modules"
+sendMessage "Désactivation temporaire de la politique d'installation des modules" "note"
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
-Write-Host "[NOTE] Lancement de Winfetch"
+sendMessage "Lancement de Winfetch" "note"
 winfetch
 $pathConfigWinfetch = Join-Path -Path $env:UserProfile -ChildPath ".config\winfetch\config.ps1"
 Write-Host ""
-Write-Host "[INSTRUCT] Pour modifier la configuration de Winfetch, modifier le fichier dans : $pathConfigWinfetch" -ForegroundColor Yellow
+sendMessage "Pour modifier la configuration de Winfetch, modifier le fichier dans : $pathConfigWinfetch" "instruct"
 Write-Host ""
 
-Write-Host "[NOTE] Réactivation de la politique d'installation des modules"
+sendMessage "Réactivation de la politique d'installation des modules" "note"
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Default
 
-Write-Host "[NOTE] Configuration du profil Powershell"
+sendMessage "Configuration du profil Powershell" "note"
 Write-Host ""
-Write-Host "[NOTE] Le fichier de configuration existant va être supprimé" -ForegroundColor Red
+sendMessage "Le fichier de configuration existant va être supprimé" "warn"
 Write-Host ""
 pause
 if (Test-Path $PROFILE) {
@@ -60,10 +75,10 @@ Add-Content $PROFILE "winfetch"
 Add-Content $PROFILE "oh-my-posh init pwsh --config '$env:POSH_THEMES_PATH/zash.omp.json' | Invoke-Expression"
 
 Write-Host ""
-Write-Host "[INSTRUCT] Si vous souhaitez enlever le temps de chargement ajouter -nologo à la commande de lancement de votre terminal." -ForegroundColor Yellow
-Write-Host '[INSTRUCT] Par exemple : "C:\Program Files\PowerShell\7\pwsh.exe" -nologo"' -ForegroundColor Yellow
+sendMessage "Si vous souhaitez enlever le temps de chargement ajouter -nologo à la commande de lancement de votre terminal." "instruct"
+sendMessage 'Par exemple : "C:\Program Files\PowerShell\7\pwsh.exe" -nologo' "instruct"
 Write-Host ""
-Write-Host "[INSTRUCT] N'oubliez pas de changer la police du terminal par celle que vous avez télécharger (elle fini par 'Nerd Font')" -ForegroundColor Yellow
+sendMessage "N'oubliez pas de changer la police du terminal par celle que vous avez télécharger (elle fini par 'Nerd Font')" "instruct"
 Write-Host ""
 
 pause
