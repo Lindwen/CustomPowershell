@@ -1,35 +1,39 @@
 # CustomPowershell
 
-Ce dépôt contient un script PowerShell nommé `run.ps1` conçu pour customiser votre Powershell.
+This repository contains a PowerShell script named `run.ps1` designed to customize your Powershell.
 
 ![winfetch_command](/assets/winfetch.png)
 ![ls_command](/assets/ls.png)
 
-## Comment l'utiliser
+## How to use it
 
-### Téléchargement du dépôt
+### Download the repository
 
-* Clonez ce dépôt sur votre machine locale en utilisant la commande suivante :
+* Clone this repository on your local machine using the following command :
 ```bash
 git clone https://github.com/Lindwen/CustomPowershell.git
 ```
-ou en téléchargeant le code en tant que fichier ZIP et en l'extrayant sur votre machine.
 
-### Exécution du script
+or by downloading the code as a ZIP file and extracting it on your machine.
 
-* Assurez-vous d'avoir [PowerShell](https://github.com/PowerShell/PowerShell/releases) installé sur votre système.
+### Run the script
 
-#### Important ! Avant d'exécuter le script :
-Avant d'exécuter ce script, il faut changer la politique d'exécution des scripts de PowerShell.
-Pour le faire, exécuter les commandes suivantes dans PowerShell en tant qu'administrateur.
+* Make sure you have [PowerShell](https://github.com/PowerShell/PowerShell/releases) installed on your system.
+
+#### Important ! Before running the script :
+
+Before running this script, you need to change the execution policy of PowerShell.
+
+To do so, run the following commands in PowerShell as an administrator.
 ```powershell
-Get-ExecutionPolicy # Retenez bien le résultat, c'est votre politique d'exécution des scripts actuelle
-Set-ExecutionPolicy unrestricted # Autorise l'exécution de scripts non signés, étant donné que celui là ne l'est pas.
-# Exécuter le script, comme indiqué ci dessous.
-Set-ExecutionPolicy <resultat du Get-ExecutionPolicy> # Retourne sur l'ancienne politique d'exécution des scripts.
-``` 
-* Naviguez jusqu'au répertoire où vous avez cloné ou extrait ce dépôt.
-* Exécutez le script run.ps1 en utilisant la commande suivante :
+Get-ExecutionPolicy # Remember the result, it's your current script execution policy
+Set-ExecutionPolicy unrestricted # Allow the execution of unsigned scripts, since this one is not signed.
+# Run the script, as indicated below.
+Set-ExecutionPolicy <result of Get-ExecutionPolicy> # Return to the old script execution policy.
+```
+
+* Navigate to the directory where you cloned or extracted this repository.
+* Run the run.ps1 script using the following command :
 ```powershell
 .\run.ps1
 ```
