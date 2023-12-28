@@ -49,6 +49,8 @@ ManageModulePolicy "enable"
 
 DisplayMessage "Installation de OhMyPosh..." "note"
 winget install JanDeDobbeleer.OhMyPosh -s winget
+$env:POWERSHELL_MODULES_PATH = $env:PSModulePath -split ';'
+Start-Sleep -Seconds 5
 
 DisplayMessage "Configuration de la police" "note"
 Write-Host ""
