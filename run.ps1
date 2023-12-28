@@ -37,7 +37,6 @@ Start-Process "ms-windows-store://pdp/?ProductId=9NBLGGH4NNS1"
 Write-Host ""
 pause
 
-DisplayMessage "Désactivation temporaire de la politique d'installation des modules" "note"
 ManageModulePolicy "disable"
 
 DisplayMessage "Installation de Winfetch..." "note"
@@ -46,7 +45,6 @@ Install-Script -Name winfetch -Force -Confirm:$false
 DisplayMessage "Installation de Terminal-Icons..." "note"
 Install-Module -Name Terminal-Icons -Force -Confirm:$false
 
-DisplayMessage "Réactivation de la politique d'installation des modules" "note"
 ManageModulePolicy "enable"
 
 DisplayMessage "Installation de OhMyPosh..." "note"
@@ -58,7 +56,6 @@ DisplayMessage "Choisissez une police à télécharger" "instruct"
 Write-Host ""
 oh-my-posh font install --user
 
-DisplayMessage "Désactivation temporaire de la politique d'installation des modules" "note"
 ManageModulePolicy "disable"
 
 DisplayMessage "Lancement de Winfetch" "note"
@@ -68,7 +65,6 @@ Write-Host ""
 DisplayMessage "Pour modifier la configuration de Winfetch, modifier le fichier dans : $pathConfigWinfetch" "instruct"
 Write-Host ""
 
-DisplayMessage "Réactivation de la politique d'installation des modules" "note"
 ManageModulePolicy "enable"
 
 DisplayMessage "Configuration du profil Powershell" "note"
